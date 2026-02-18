@@ -254,7 +254,7 @@ export default function MallDetailPage() {
                   </Button>
                 </div>
                 <p className="text-white/60">
-                  ສະຖານະປະຈຸບັນ:{" "}
+                  ສະຖານະປະຈຸບັນ:
                   <span
                     className={clsx(
                       "font-bold",
