@@ -40,6 +40,8 @@ export default function SmartParkingPage() {
     router.push(`/mall/${id}`);
   };
 
+  console.log("malls", malls);
+
   return (
     <main className="animate-fadeIn">
       <div className="space-y-8">

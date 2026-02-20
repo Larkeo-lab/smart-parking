@@ -1,5 +1,5 @@
 export const BROKER_CONFIG = {
-  URL: "ws://10.230.147.50:9001", // ตัวอย่าง IP Broker ของคุณ
+  URL: "ws://broker.mqttdashboard.com:8000/mqtt",
 };
 
 export interface MqttParkingData {
@@ -9,11 +9,12 @@ export interface MqttParkingData {
   gateStatus: "open" | "closed";
 }
 
-// Topics สำหรับ MQTT
+// Topics สำหรับ MQTT (ต้องตรงกับใน ESP32 ทุกตัวอักษร)
 export const MQTT_TOPICS = {
   PARKING_STATUS: "parking/status",
   GATE_CONTROL: "parking/gate/control",
   GATE_STATUS: "parking/gate/status",
+  BOARD_STATUS: "parking/board/status",
 };
 
 // ข้อมูลจำลองสำหรับเริ่มต้น (Mock Data)

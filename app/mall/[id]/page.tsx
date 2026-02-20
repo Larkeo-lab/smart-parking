@@ -27,7 +27,7 @@ export default function MallDetailPage() {
   const router = useRouter();
   const mallId = params.id as string;
 
-  const { mqttData, publishGateCommand } = useMqtt(mallId);
+  const { mqttData, isBoardConnected, publishGateCommand } = useMqtt(mallId);
   const [parkingSpots, setParkingSpots] =
     useState<Record<string, Spot[]>>(initialSpots);
   const [selectedSpot, setSelectedSpot] = useState<{
@@ -300,6 +300,26 @@ export default function MallDetailPage() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
           <h2 className="text-3xl font-bold font-['Bai_Jamjuree'] flex items-center gap-3">
             {mall.icon} {mall.name}
+            <div className="flex items-center gap-2 ml-4">
+              <div
+                className={clsx(
+                  "w-3 h-3 rounded-full animate-pulse",
+                  isBoardConnected
+                    ? "bg-green-500 shadow-[0_0_10px_#22c55e]"
+                    : "bg-red-500 shadow-[0_0_10px_#ef4444]",
+                )}
+              />
+              <span
+                className={clsx(
+                  "text-xs font-semibold px-2 py-1 rounded-full border",
+                  isBoardConnected
+                    ? "text-green-400 border-green-500/30 bg-green-500/10"
+                    : "text-red-400 border-red-500/30 bg-red-500/10",
+                )}
+              >
+                {isBoardConnected ? "BOARD ONLINE" : "BOARD OFFLINE"}
+              </span>
+            </div>
           </h2>
         </div>
 

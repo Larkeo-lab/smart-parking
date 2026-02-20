@@ -6,6 +6,11 @@ export const useMqtt = (mallId: string) => {
   const [client, setClient] = useState<MqttClient | null>(null);
   const [mqttData, setMqttData] = useState<MqttParkingData | null>(null);
   const [isConnected, setIsConnected] = useState(false);
+  const [isBoardConnected, setIsBoardConnected] = useState(false);
+
+  console.log("mqttData", mqttData);
+  console.log("isConnected", isConnected);
+  console.log("isBoardConnected", isBoardConnected);
 
   useEffect(() => {
     const mqttClient = mqtt.connect(BROKER_CONFIG.URL);
@@ -15,6 +20,7 @@ export const useMqtt = (mallId: string) => {
       setIsConnected(true);
       mqttClient.subscribe(MQTT_TOPICS.PARKING_STATUS);
       mqttClient.subscribe(MQTT_TOPICS.GATE_STATUS);
+      mqttClient.subscribe(MQTT_TOPICS.BOARD_STATUS);
       setClient(mqttClient);
     });
 
@@ -40,6 +46,10 @@ export const useMqtt = (mallId: string) => {
           prev ? { ...prev, gateStatus: payload as any } : null,
         );
       }
+
+      if (topic === MQTT_TOPICS.BOARD_STATUS) {
+        setIsBoardConnected(payload === "online");
+      }
     });
 
     return () => {
@@ -60,5 +70,5 @@ export const useMqtt = (mallId: string) => {
     [client, isConnected],
   );
 
-  return { mqttData, isConnected, publishGateCommand };
+  return { mqttData, isConnected, isBoardConnected, publishGateCommand };
 };
